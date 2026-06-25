@@ -37,7 +37,7 @@ UnIRe consists of two core stages:
 
 ```bash
 # Clone the repository with submodules
-git clone --recursive https://github.com/<your-username>/UnIRe.git
+git clone --recursive https://github.com/YunxuanMao/UnIRe.git
 cd UnIRe
 
 # Create conda environment
