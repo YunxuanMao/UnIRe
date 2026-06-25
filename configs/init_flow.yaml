@@ -1,0 +1,20 @@
+init:
+  from_lidar:
+    return_color: True
+    return_normalized_time: True
+  ground_randoms: 200_000
+  cam_height: 1.4
+  near_trunc: 80.
+  random_trunc: 15.
+  use_gt_ground: true
+  flow_cfg:
+    eps: 0.3
+    min_samples: 16
+    iters: 500
+    lr: 0.03
+    sc_w: 1. 
+    dist_w: 2.
+    d_thre: 0.03
+    K: 16
+    trunc_dist: 0.5
+    # static_trunc: 0.01
