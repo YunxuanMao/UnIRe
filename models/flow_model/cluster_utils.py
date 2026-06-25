@@ -11,9 +11,7 @@ from copy import deepcopy
 def compute_position_distance(positions, mask=None):
     num_points, num_frames = positions.shape[0], positions.shape[1]
     distances = np.zeros((num_points, num_points))
-    # for i in range(num_points):
-    #     for j in range(num_points):
-    #         distances[i, j] = torch.norm(trajectories[i] - trajectories[j])
+    
     for t in range(num_frames):
         if mask is not None:
             mask_i = np.matmul(mask[:, t], mask[:, t].T)
@@ -30,14 +28,11 @@ def compute_position_distance(positions, mask=None):
 
 
 
-# 计算运动方向的相似性（余弦相似度）
+
 def compute_direction_similarity(trajectories, mask=None):
     num_points, num_frames = trajectories.shape[0], trajectories.shape[1]
     total_similarity = np.zeros((num_points, num_points))
-    # if mask is not None:
-    #     num_counts = torch.zeros((num_points, num_points), dtype=torch.long).to(trajectories.device)
-
-      # 每个点的总位移方向
+    
     directions_normalized = trajectories / (np.linalg.norm(trajectories, axis=-1, keepdims=True) + 1e-6)  # 单位化
     for t in range(num_frames - 1):
         similarities = np.matmul(directions_normalized[:, t], directions_normalized[:, t].T)  # 方向相似性矩阵
@@ -214,7 +209,6 @@ def associate_clusters(points_list, ins_list, flow_list, cluster_trunc):
         # exist_mask = dist.squeeze() < cluster_trunc
         align_valid_mask = dist_b.squeeze() < cluster_trunc
 
-        # exist_cluster = c1[exist_mask].unique()
         
         c1, c_next, cmax, changed_id = align_id_clusters(c1, c2 + cmax, cmax, nn, nn_b, dist, dist_b, cluster_trunc)
         new_points_cluster = c_next[~align_valid_mask]
@@ -272,7 +266,6 @@ def associate_clusters_inverse(points_list, ins_list, flow_list, cluster_trunc):
         # exist_mask = dist.squeeze() < cluster_trunc
         align_valid_mask  = dist_b.squeeze() < cluster_trunc
 
-        # exist_cluster = c1[exist_mask].unique()
 
         
         c1, c_next, cmax = align_id_clusters(c1, c2, cmax, nn, nn_b, dist, dist_b, cluster_trunc, forward = False)
